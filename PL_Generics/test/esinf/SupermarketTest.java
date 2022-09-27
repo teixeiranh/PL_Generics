@@ -23,7 +23,7 @@ public class SupermarketTest {
     
     public SupermarketTest() throws IOException, Exception {
         instance = new Supermarket();
-        List<String> l = Files.lines(Paths.get("invoices.txt")).collect(Collectors.toList());
+        List<String> l = Files.lines(Paths.get("PL_Generics/invoices.txt")).collect(Collectors.toList());
         instance.getInvoices(l);        
     }
 
