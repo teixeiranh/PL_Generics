@@ -23,33 +23,32 @@ public class Supermarket
     // Reads invoices from a list of String
     void getInvoices(List<String> l) throws Exception
     {
-        final char INVOICE = 'I';
-        final char PRODUCT = 'P';
-
-        Invoice invoice;
-        Product product;
         Set<Product> setOfProducts = new HashSet<>();
 
-        //TODO: reformulate here
-        for (int i = 0; i < l.size(); i++)
+        for (int i = 0; i < l.size(); )
         {
             if (l.get(i).charAt(0) == 'I')
             {
                 String[] splitString = l.get(i).split(",");
-                invoice = new Invoice(splitString[1], splitString[2]);
                 i++;
-
-                do
+                while (l.get(i).charAt(0) != 'I')
                 {
                     String[] splitString2 = l.get(i).split(",");
-                    product = new Product(splitString2[1], Integer.parseInt(splitString2[2]), Long.parseLong(splitString2[3]));
-                    setOfProducts.add(product);
-                    i++;
-                }while(l.get(i).charAt(0) != 'I');
-                i--;
-                sup.put(invoice, setOfProducts);
+                    setOfProducts.add(new Product(splitString2[1], Integer.parseInt(splitString2[2]), Long.parseLong(splitString2[3])));
+                    if (i < l.size() - 1)
+                    {
+                        i++;
+                    } else
+                    {
+                        break;
+                    }
+                }
+                sup.put(new Invoice(splitString[1], splitString[2]), new HashSet<>(setOfProducts));
+                setOfProducts.removeAll(setOfProducts);
+            } else
+            {
+                break;
             }
-
         }
     }
 
