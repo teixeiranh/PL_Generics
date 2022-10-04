@@ -5,6 +5,8 @@
  */
 package esinf;
 
+import com.sun.nio.sctp.AbstractNotificationHandler;
+
 import java.time.LocalDate;
 import java.util.*;
 
@@ -58,7 +60,14 @@ public class Supermarket
     Map<Invoice, Integer> numberOfProductsPerInvoice()
     {
 
-        throw new UnsupportedOperationException("Not supported yet.");
+        Map<Invoice, Integer> result = new HashMap<>();
+
+        for (Invoice key : sup.keySet())
+        {
+            Set<Product> value = sup.get(key);
+            result.put(key, value.size());
+        }
+        return result;
     }
 
     // returns a Set of invoices in which each date is >d1 and <d2
@@ -78,6 +87,50 @@ public class Supermarket
     Map<String, Set<Invoice>> convertInvoices()
     {
 
-        throw new UnsupportedOperationException("Not supported yet.");
+        /* PSEUDOCODE
+        para cada elemento do supermercado
+            apanhar a descrição do producto e meter isso num set
+
+        para cada elemento no set de descriçao do producto
+            comparar com o set de cada invoice e, caso esteja presente, adicionar isso ao set dos invoices
+        criar o elemento no map <String,Set<Invoice>
+         */
+
+        /* PSEUDOCODE2
+        para cada invoice do supermercado
+            apanhar a descrição do producto
+            criar a key no map e adicionar o produto ao set desse supermercado
+         */
+
+        Map<String, Set<Invoice>> result = new HashMap<>();
+        Set<String> listOfProducts = new HashSet<>();
+
+        for (Invoice key : sup.keySet())
+        {
+            Set<Product> keyValues = sup.get(key);
+            for (Product product : keyValues)
+            {
+                listOfProducts.add(product.getIdentification());
+            }
+        }
+
+        for (String uniqueProduct : listOfProducts)
+        {
+            Set<Invoice> setOfInvoices = new HashSet<>();
+            for (Invoice key : sup.keySet())
+            {
+                Set<Product> keyValues = sup.get(key);
+                for (Product product2 : keyValues)
+                {
+                    if (product2.getIdentification().equals(uniqueProduct))
+                    {
+                        setOfInvoices.add(new Invoice(key.getReference(),null));
+                    }
+                }
+            }
+            result.put(uniqueProduct, new HashSet<>(setOfInvoices));
+            setOfInvoices.removeAll(setOfInvoices);
+        }
+        return result;
     }
 }

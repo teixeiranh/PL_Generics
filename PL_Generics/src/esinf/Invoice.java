@@ -64,7 +64,7 @@ public class Invoice implements Comparable<Invoice>
         }
 
         final Invoice other = (Invoice) obj;
-        if (this.reference == null || this.reference != other.reference)
+        if (this.reference == null || !this.reference.equals(other.reference))
         {
             return false;
         }
@@ -76,14 +76,14 @@ public class Invoice implements Comparable<Invoice>
     @Override
     public int hashCode()
     {
-        int h1=this.reference.hashCode();
+        int h1 = this.reference.hashCode();
         return h1;
     }
 
     @Override
     public int compareTo(Invoice o)
     {
-        int comparison=this.reference.compareTo(o.reference);
+        int comparison = this.reference.compareTo(o.reference);
 
         if (comparison > 0)
         {
@@ -91,8 +91,7 @@ public class Invoice implements Comparable<Invoice>
         } else if (comparison < 0)
         {
             return -1;
-        }
-        else
+        } else
         {
             return 0;
         }
