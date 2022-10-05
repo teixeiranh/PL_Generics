@@ -63,7 +63,7 @@ public class SupermarketTest
         System.out.println("totalOfProduct");
         String productId = "APPLE";
         long result = instance.totalOfProduct(productId);
-        long expResult = 1190;
+        long expResult = 490; //1190 está errado, o valor correcto é 490
         assertEquals(expResult, result);
     }
 
@@ -73,7 +73,7 @@ public class SupermarketTest
         System.out.println("convertInvoices");
         Map<String, Set<Invoice>> result = instance.convertInvoices();
         Set<Invoice> r = result.get("COCONUT");
-        boolean test= r.contains(new Invoice("INV004", null));
+        //boolean test= r.contains(new Invoice("INV004", null));
         assertTrue(r.contains(new Invoice("INV004", null)));
         r = result.get("APPLE");
         assertTrue(r.contains(new Invoice("INV001", null)));

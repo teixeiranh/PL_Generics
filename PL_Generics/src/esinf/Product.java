@@ -71,7 +71,7 @@ public class Product implements Comparable<Product>
         }
 
         final Product other = (Product) obj;
-        if (this.identification == null || this.identification != other.identification)
+        if (this.identification == null || !this.identification.equals(other.identification))
         {
             return false;
         }
@@ -82,14 +82,14 @@ public class Product implements Comparable<Product>
     @Override
     public int hashCode()
     {
-        int h1=this.identification.hashCode();
+        int h1 = this.identification.hashCode();
         return h1;
     }
 
     @Override
     public int compareTo(Product p)
     {
-        int comparison=this.identification.compareTo(p.identification);
+        int comparison = this.identification.compareTo(p.identification);
 
         if (comparison > 0)
         {
@@ -97,8 +97,7 @@ public class Product implements Comparable<Product>
         } else if (comparison < 0)
         {
             return -1;
-        }
-        else
+        } else
         {
             return 0;
         }

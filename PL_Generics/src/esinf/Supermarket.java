@@ -73,34 +73,38 @@ public class Supermarket
     // returns a Set of invoices in which each date is >d1 and <d2
     Set<Invoice> betweenDates(LocalDate d1, LocalDate d2)
     {
-        throw new UnsupportedOperationException("Not supported yet.");
+        Set<Invoice> result = new HashSet<>();
+
+        for (Invoice key : sup.keySet())
+        {
+            if (key.getDate().isAfter(d1) && key.getDate().isBefore(d2))
+            {
+                result.add(key);
+            }
+        }
+        return result;
     }
 
     // returns the sum of the price of the product in all the invoices
     long totalOfProduct(String productId)
     {
-        throw new UnsupportedOperationException("Not supported yet.");
+        long result = 0;
+        for (Invoice key : sup.keySet())
+        {
+            Set<Product> products = sup.get(key);
+            for (Product prd : products)
+            {
+                if (prd.getIdentification().equals(productId)) result += prd.getPrice();
+            }
+        }
+        return result;
+
     }
 
     // converts a map of invoices and troducts to a map which key is a product
     // identification and the values are a set of the invoices in which it appears
     Map<String, Set<Invoice>> convertInvoices()
     {
-
-        /* PSEUDOCODE
-        para cada elemento do supermercado
-            apanhar a descrição do producto e meter isso num set
-
-        para cada elemento no set de descriçao do producto
-            comparar com o set de cada invoice e, caso esteja presente, adicionar isso ao set dos invoices
-        criar o elemento no map <String,Set<Invoice>
-         */
-
-        /* PSEUDOCODE2
-        para cada invoice do supermercado
-            apanhar a descrição do producto
-            criar a key no map e adicionar o produto ao set desse supermercado
-         */
 
         Map<String, Set<Invoice>> result = new HashMap<>();
         Set<String> listOfProducts = new HashSet<>();
@@ -124,7 +128,7 @@ public class Supermarket
                 {
                     if (product2.getIdentification().equals(uniqueProduct))
                     {
-                        setOfInvoices.add(new Invoice(key.getReference(),null));
+                        setOfInvoices.add(new Invoice(key.getReference(), null));
                     }
                 }
             }
